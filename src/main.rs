@@ -4,14 +4,13 @@ use std::io::{self, stdout, Write};
 use crossterm::event::{read, Event, KeyCode};
 
 fn clear_screen() {
-    // ANSI clear screen and move cursor home
     print!("\x1b[2J\x1b[H");
 }
 
 fn main() -> io::Result<()> {
     loop {
         clear_screen();
-        println!("Mini Games — Select a game to run:\n");
+        println!("Visualisers — Select a game to run:\n");
 
         let factories = games::available_games();
         for (i, factory) in factories.iter().enumerate() {
@@ -33,7 +32,6 @@ fn main() -> io::Result<()> {
                     let idx = (c as u8 - b'0') as usize;
                     if idx >= 1 && idx <= factories.len() {
                         let mut game = (factories[idx - 1])();
-                        // run may take over the terminal until user quits the mini-game
                         let _ = game.run();
                     }
                 }
